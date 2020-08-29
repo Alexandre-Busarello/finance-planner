@@ -24,6 +24,14 @@ export default class AddIncomeDistribution1598714451299
             type: 'uuid',
           },
           {
+            name: 'month',
+            type: 'smallint',
+          },
+          {
+            name: 'year',
+            type: 'smallint',
+          },
+          {
             name: 'description',
             type: 'varchar',
           },

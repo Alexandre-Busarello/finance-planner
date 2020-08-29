@@ -15,6 +15,12 @@ class IncomeDistribution {
   id: string;
 
   @Column()
+  month: number;
+
+  @Column()
+  year: number;
+
+  @Column()
   description: string;
 
   @Column({
