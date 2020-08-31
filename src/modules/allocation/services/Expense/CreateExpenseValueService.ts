@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 // import AppError from '@shared/errors/AppError';
 
+import IIncomeDistributionRepository from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
 import IExpenseRepository from '@modules/allocation/repositories/Expense/IExpenseRepository';
 import ExpenseValue from '@modules/allocation/infra/typeorm/entities/ExpenseValue';
 
@@ -15,7 +16,7 @@ interface IRequest {
 class CreateExpenseValueService {
   constructor(
     @inject('ExpenseRepository')
-    private expenseRepository: IExpenseRepository,
+    private expenseRepository: IExpenseRepository, // @inject('IncomeDistributionRepository') // private incomeDistributionRepository: IIncomeDistributionRepository,
   ) {}
 
   public async execute({

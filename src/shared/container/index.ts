@@ -15,6 +15,8 @@ import IIncomeDistributionSettingsRepository from '@modules/incomes/repositories
 import IncomeDistributionSettingsRepository from '@modules/incomes/infra/typeorm/repositories/IncomeDistributionSettingsRepository';
 import IIncomeDistribution from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
 import IncomeDistributionRepository from '@modules/incomes/infra/typeorm/repositories/IncomeDistributionRepository';
+import IExpenseRepository from '@modules/allocation/repositories/Expense/IExpenseRepository';
+import ExpenseRepository from '@modules/allocation/infra/typeorm/repositories/ExpenseRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -44,4 +46,9 @@ container.registerSingleton<IIncomeDistributionSettingsRepository>(
 container.registerSingleton<IIncomeDistribution>(
   'IncomeDistributionRepository',
   IncomeDistributionRepository,
+);
+
+container.registerSingleton<IExpenseRepository>(
+  'ExpenseRepository',
+  ExpenseRepository,
 );

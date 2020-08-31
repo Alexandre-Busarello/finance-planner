@@ -20,7 +20,9 @@ class MonthlyIncome {
   @Column()
   year: number;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   value: number;
 
   @Column()

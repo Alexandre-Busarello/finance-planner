@@ -26,7 +26,9 @@ class ExpenseValue {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   value: number;
 
   @Column()

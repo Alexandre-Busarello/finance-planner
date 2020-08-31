@@ -39,7 +39,7 @@ class ExpenseRepository implements IExpenseRepository {
       value,
     });
 
-    await this.ormExpenseRepository.save(expenseValue);
+    await this.ormExpenseValueRepository.save(expenseValue);
 
     return expenseValue;
   }

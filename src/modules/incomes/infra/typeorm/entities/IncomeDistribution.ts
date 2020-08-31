@@ -23,13 +23,19 @@ class IncomeDistribution {
   @Column()
   description: string;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   percentage: number;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   value: number;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   accomplished_value: number;
 
   @Column()

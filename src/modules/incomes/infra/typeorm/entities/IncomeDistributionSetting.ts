@@ -17,7 +17,9 @@ class IncomeDistributionSetting {
   @Column()
   description: string;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+  })
   percentage: number;
 
   @Column()
