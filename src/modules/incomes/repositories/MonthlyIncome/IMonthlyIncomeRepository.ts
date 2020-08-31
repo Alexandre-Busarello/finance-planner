@@ -5,6 +5,11 @@ export default interface IMonthlyIncomeRepository {
   findById(id: string): Promise<MonthlyIncome | undefined>;
   findByUser(userId: string): Promise<MonthlyIncome[]>;
   findByUserAndYear(userId: string, year: number): Promise<MonthlyIncome[]>;
+  findByUserAndMonthAndYear(
+    userId: string,
+    month: number,
+    year: number,
+  ): Promise<MonthlyIncome[]>;
   create(data: ICreateMonthlyIncomeDTO): Promise<MonthlyIncome>;
   save(user: MonthlyIncome): Promise<MonthlyIncome>;
 }

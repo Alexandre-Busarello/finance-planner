@@ -11,6 +11,7 @@ describe('CreateMonthlyIncome', () => {
   beforeEach(() => {
     fakeMonthlyIncomeRepository = new FakeMonthlyIncomeRepository();
     fakeUsersRepository = new FakeUsersRepository();
+
     createMonthlyIncomeService = new CreateMonthlyIncomeService(
       fakeMonthlyIncomeRepository,
       fakeUsersRepository,

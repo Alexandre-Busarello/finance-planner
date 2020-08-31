@@ -48,6 +48,12 @@ export default class AddIncomeDistribution1598714451299
             scale: 2,
           },
           {
+            name: 'accomplished_value',
+            type: 'decimal',
+            precision: 5,
+            scale: 2,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

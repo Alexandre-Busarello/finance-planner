@@ -29,6 +29,19 @@ class FakeMonthlyIncomeRepository implements IMonthlyIncomeRepository {
     return monthlyIncomeList;
   }
 
+  async findByUserAndMonthAndYear(
+    userId: string,
+    month: number,
+    year: number,
+  ): Promise<MonthlyIncome[]> {
+    const monthlyIncomeList = this.monthlyIncomes.filter(
+      find =>
+        find.user_id === userId && find.month === month && find.year === year,
+    );
+
+    return monthlyIncomeList;
+  }
+
   async create(data: ICreateMonthlyIncomeDTO): Promise<MonthlyIncome> {
     const monthlyIncome = new MonthlyIncome();
 
