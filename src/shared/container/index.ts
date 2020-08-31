@@ -9,6 +9,12 @@ import IUserTokensRepository from '@modules/users/repositories/IUserTokensReposi
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+import MonthlyIncomeRepository from '@modules/incomes/infra/typeorm/repositories/MonthlyIncomeRepository';
+import IMonthlyIncomeRepository from '@modules/incomes/repositories/MonthlyIncome/IMonthlyIncomeRepository';
+import IIncomeDistributionSettingsRepository from '@modules/incomes/repositories/IncomeDistributionSettings/IIncomeDistributionSettingsRepository';
+import IncomeDistributionSettingsRepository from '@modules/incomes/infra/typeorm/repositories/IncomeDistributionSettingsRepository';
+import IIncomeDistribution from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
+import IncomeDistributionRepository from '@modules/incomes/infra/typeorm/repositories/IncomeDistributionRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -23,4 +29,19 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<INotificationsRepository>(
   'NotificationsRepository',
   NotificationsRepository,
+);
+
+container.registerSingleton<IMonthlyIncomeRepository>(
+  'MonthlyIncomeRepository',
+  MonthlyIncomeRepository,
+);
+
+container.registerSingleton<IIncomeDistributionSettingsRepository>(
+  'IncomeDistributionSettingsRepository',
+  IncomeDistributionSettingsRepository,
+);
+
+container.registerSingleton<IIncomeDistribution>(
+  'IncomeDistributionRepository',
+  IncomeDistributionRepository,
 );
