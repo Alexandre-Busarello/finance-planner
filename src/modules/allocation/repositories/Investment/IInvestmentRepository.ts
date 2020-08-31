@@ -3,7 +3,7 @@ import ICreateInvestmentValueDTO from '@modules/allocation/dtos/ICreateInvestmen
 import Investment from '@modules/allocation/infra/typeorm/entities/Investment';
 import InvestmentValue from '@modules/allocation/infra/typeorm/entities/InvestmentValue';
 
-export default interface IExpenseRepository {
+export default interface IInvestmentRepository {
   create(data: ICreateInvestmentDTO): Promise<Investment>;
   createValue(data: ICreateInvestmentValueDTO): Promise<InvestmentValue>;
 }

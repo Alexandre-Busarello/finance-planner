@@ -17,4 +17,7 @@ routes.use('/profile', profileRouter);
 routes.use('/monthly-incomes', monthlyIncomesRouter);
 routes.use('/incomes-distribution', incomeDistributionRouter);
 
+routes.use('/expenses', incomeDistributionRouter);
+routes.use('/incomes-distribution/:incomeId', incomeDistributionRouter);
+
 export default routes;

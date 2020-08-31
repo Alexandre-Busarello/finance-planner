@@ -52,3 +52,7 @@ plans
   * plan_id
   * value
   * origin_id (FK to IncomeDistribution)
+
+
+POST http://localhost:3333/incomes-distribution/{id}/investment/{investmentId} (Faz aporte)
+POST http://localhost:3333/investment (Cria a lista para aportes)
