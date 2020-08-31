@@ -53,7 +53,7 @@ class CreateIncomesDistributionService {
 
     const monthlyIncomeValue = monthlyIncomeList.reduce(
       (sum, monthlyIncome) => {
-        return sum + monthlyIncome.value;
+        return sum + Number(monthlyIncome.value);
       },
       0,
     );
@@ -72,7 +72,10 @@ class CreateIncomesDistributionService {
         month,
         description: setting.description,
         percentage: setting.percentage,
-        value: Math.round((monthlyIncomeValue / 100) * setting.percentage),
+        value: Number(
+          ((monthlyIncomeValue / 100) * setting.percentage).toFixed(2),
+        ),
+        accomplished_value: 0,
       });
 
       incomes.push(income);

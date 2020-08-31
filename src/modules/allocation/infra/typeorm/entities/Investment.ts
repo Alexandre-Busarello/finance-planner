@@ -9,16 +9,10 @@ import {
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
 
-@Entity('income_distribution_settings')
-class IncomeDistributionSetting {
+@Entity('investments')
+class Investment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  percentage: number;
 
   @Column()
   user_id: string;
@@ -27,6 +21,9 @@ class IncomeDistributionSetting {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Column()
+  name: string;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -34,4 +31,4 @@ class IncomeDistributionSetting {
   updated_at: Date;
 }
 
-export default IncomeDistributionSetting;
+export default Investment;

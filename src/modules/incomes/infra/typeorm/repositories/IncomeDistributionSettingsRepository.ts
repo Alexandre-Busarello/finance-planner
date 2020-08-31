@@ -12,12 +12,12 @@ class IncomeDistributionSettingsRepository
   }
 
   async findById(id: string): Promise<IncomeDistributionSetting | undefined> {
-    const setting = this.ormRepository.findOne(id);
+    const setting = await this.ormRepository.findOne(id);
     return setting;
   }
 
   async findByUser(userId: string): Promise<IncomeDistributionSetting[]> {
-    const settings = this.ormRepository.find({
+    const settings = await this.ormRepository.find({
       where: {
         user_id: userId,
       },
@@ -36,7 +36,7 @@ class IncomeDistributionSettingsRepository
       percentage,
     });
 
-    this.ormRepository.save(incomeDistributionSetting);
+    await this.ormRepository.save(incomeDistributionSetting);
 
     return incomeDistributionSetting;
   }
@@ -44,7 +44,7 @@ class IncomeDistributionSettingsRepository
   public async save(
     incomeDistributionSetting: IncomeDistributionSetting,
   ): Promise<IncomeDistributionSetting> {
-    this.ormRepository.save(incomeDistributionSetting);
+    await this.ormRepository.save(incomeDistributionSetting);
 
     return incomeDistributionSetting;
   }

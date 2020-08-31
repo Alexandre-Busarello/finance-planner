@@ -5,11 +5,16 @@ import IDeleteIncomeDistributionDTO from '@modules/incomes/dtos/IDeleteIncomeDis
 import { Repository, getRepository } from 'typeorm';
 import IIncomeDistribution from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
 
-class FakeIncomeDistributionRepository implements IIncomeDistribution {
+class IncomeDistributionRepository implements IIncomeDistribution {
   private ormRepository: Repository<IncomeDistribution>;
 
   constructor() {
     this.ormRepository = getRepository(IncomeDistribution);
+  }
+
+  async getById(id: string): Promise<IncomeDistribution | undefined> {
+    const income = this.ormRepository.findOne(id);
+    return income;
   }
 
   async getAll({
@@ -17,7 +22,7 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     month,
     year,
   }: IGetAllIncomeDistributionDTO): Promise<IncomeDistribution[]> {
-    const incomes = this.ormRepository.find({
+    const incomes = await this.ormRepository.find({
       where: {
         user_id,
         month,
@@ -34,6 +39,7 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     description,
     percentage,
     value,
+    accomplished_value,
   }: ICreateIncomeDistributionDTO): Promise<IncomeDistribution> {
     const incomeDistribution = this.ormRepository.create({
       user_id,
@@ -42,19 +48,22 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
       description,
       percentage,
       value,
+      accomplished_value,
     });
 
-    this.ormRepository.save(incomeDistribution);
+    await this.ormRepository.save(incomeDistribution);
 
     return incomeDistribution;
   }
 
-  public async save(
-    incomeDistribution: IncomeDistribution,
-  ): Promise<IncomeDistribution> {
-    this.ormRepository.save(incomeDistribution);
+  public async saveAll(
+    incomes: IncomeDistribution[],
+  ): Promise<IncomeDistribution[]> {
+    incomes.forEach(async income => {
+      await this.ormRepository.save(income);
+    });
 
-    return incomeDistribution;
+    return incomes;
   }
 
   async delete({
@@ -63,7 +72,7 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     year,
   }: IDeleteIncomeDistributionDTO): Promise<void> {
     if (year && month) {
-      this.ormRepository.delete({
+      await this.ormRepository.delete({
         user_id,
         month,
         year,
@@ -71,25 +80,25 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     }
 
     if (month && !year) {
-      this.ormRepository.delete({
+      await this.ormRepository.delete({
         user_id,
         month,
       });
     }
 
     if (!month && year) {
-      this.ormRepository.delete({
+      await this.ormRepository.delete({
         user_id,
         year,
       });
     }
 
     if (!month && !year) {
-      this.ormRepository.delete({
+      await this.ormRepository.delete({
         user_id,
       });
     }
   }
 }
 
-export default FakeIncomeDistributionRepository;
+export default IncomeDistributionRepository;

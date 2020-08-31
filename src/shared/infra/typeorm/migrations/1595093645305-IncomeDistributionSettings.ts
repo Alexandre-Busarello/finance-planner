@@ -21,8 +21,6 @@ export default class IncomeDistributionSettings1595093645305
           {
             name: 'percentage',
             type: 'decimal',
-            precision: 5,
-            scale: 2,
           },
           {
             name: 'created_at',

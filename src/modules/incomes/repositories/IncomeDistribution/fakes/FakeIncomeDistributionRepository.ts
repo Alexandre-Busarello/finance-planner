@@ -9,6 +9,11 @@ import IIncomeDistribution from '../IIncomeDistribution';
 class FakeIncomeDistributionRepository implements IIncomeDistribution {
   private incomesDistribution: IncomeDistribution[] = [];
 
+  async getById(id: string): Promise<IncomeDistribution | undefined> {
+    const income = this.incomesDistribution.find(find => find.id === id);
+    return income;
+  }
+
   async getAll({
     user_id,
     month,
@@ -32,15 +37,21 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     return incomeDistribution;
   }
 
-  public async save(
-    incomeDistribution: IncomeDistribution,
-  ): Promise<IncomeDistribution> {
-    const findIndex = this.incomesDistribution.findIndex(
-      find => find.id === incomeDistribution.id,
-    );
-    this.incomesDistribution[findIndex] = incomeDistribution;
+  public async saveAll(
+    incomes: IncomeDistribution[],
+  ): Promise<IncomeDistribution[]> {
+    const indexes = incomes.map(income => {
+      return this.incomesDistribution.findIndex(find => find.id === income.id);
+    });
 
-    return incomeDistribution;
+    indexes.forEach(index => {
+      this.incomesDistribution[index] = {
+        ...this.incomesDistribution[index],
+        ...incomes[index],
+      };
+    });
+
+    return this.incomesDistribution;
   }
 
   async delete({

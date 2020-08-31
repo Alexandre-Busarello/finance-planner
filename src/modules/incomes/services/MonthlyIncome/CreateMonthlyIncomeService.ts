@@ -16,7 +16,7 @@ class CreateMonthlyIncomeService {
   constructor(
     @inject('MonthlyIncomeRepository')
     private monthlyIncomeRepository: IMonthlyIncomeRepository,
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 

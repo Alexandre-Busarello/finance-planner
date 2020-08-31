@@ -17,7 +17,7 @@ class MonthlyIncomeRepository implements IMonthlyIncomeRepository {
   }
 
   async findByUser(userId: string): Promise<MonthlyIncome[]> {
-    const monthlyIncomeList = this.ormRepository.find({
+    const monthlyIncomeList = await this.ormRepository.find({
       where: {
         user_id: userId,
       },
@@ -29,7 +29,7 @@ class MonthlyIncomeRepository implements IMonthlyIncomeRepository {
     userId: string,
     year: number,
   ): Promise<MonthlyIncome[]> {
-    const monthlyIncomeList = this.ormRepository.find({
+    const monthlyIncomeList = await this.ormRepository.find({
       where: {
         user_id: userId,
         year,
@@ -43,7 +43,7 @@ class MonthlyIncomeRepository implements IMonthlyIncomeRepository {
     month: number,
     year: number,
   ): Promise<MonthlyIncome[]> {
-    const monthlyIncomeList = this.ormRepository.find({
+    const monthlyIncomeList = await this.ormRepository.find({
       where: {
         user_id: userId,
         year,
@@ -67,13 +67,13 @@ class MonthlyIncomeRepository implements IMonthlyIncomeRepository {
       value,
     });
 
-    this.ormRepository.save(monthlyIncome);
+    await this.ormRepository.save(monthlyIncome);
 
     return monthlyIncome;
   }
 
   public async save(monthlyIncome: MonthlyIncome): Promise<MonthlyIncome> {
-    this.ormRepository.save(monthlyIncome);
+    await this.ormRepository.save(monthlyIncome);
 
     return monthlyIncome;
   }

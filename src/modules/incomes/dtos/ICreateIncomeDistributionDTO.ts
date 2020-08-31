@@ -5,4 +5,5 @@ export default interface ICreateIncomeDistributionDTO {
   description: string;
   percentage: number;
   value: number;
+  accomplished_value: number;
 }

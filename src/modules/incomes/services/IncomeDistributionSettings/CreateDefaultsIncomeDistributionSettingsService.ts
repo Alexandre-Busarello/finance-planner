@@ -13,7 +13,7 @@ class CreateDefaultsIncomeDistributionSettingsService {
   constructor(
     @inject('IncomeDistributionSettingsRepository')
     private incomeDistributionSettingRepository: IIncomeDistributionSettingsRepository,
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 

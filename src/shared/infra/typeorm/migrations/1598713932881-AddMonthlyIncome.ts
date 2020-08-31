@@ -34,8 +34,6 @@ export default class AddMonthlyIncome1598713932881
           {
             name: 'value',
             type: 'decimal',
-            precision: 5,
-            scale: 2,
           },
           {
             name: 'created_at',

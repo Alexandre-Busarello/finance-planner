@@ -20,10 +20,7 @@ class MonthlyIncome {
   @Column()
   year: number;
 
-  @Column({
-    precision: 5,
-    scale: 2,
-  })
+  @Column()
   value: number;
 
   @Column()

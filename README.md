@@ -20,3 +20,35 @@
 17) O sistema deverá avisar o usuário quando utilizar o valor da reserva de oportunidade para balancear seus investimentos
 18) O usuário deverá informar ao iniciar um novo investimento, reserva de emergência, plano ou reserva de oportunidade, se ja posui algum valor alocado para que esse seja inicializado como valor inicial
 19) O usuário pode fazer um resgate de realocação, nesse caso o sistema deve gerar um MonthlyIncome com apenas uma linha de IncomeDistribution para que esse valor seja realocado
+
+DB LISTS
+
+investments
+* id
+* user_id
+* name (B3 - Ações)
+-> investments_values
+  * id
+  * investment_id
+  * value
+  * origin_id (FK to IncomeDistribution)
+
+expenses
+* id
+* user_id
+* name (Gastos mensais, Educação)
+-> expenses_values
+  * id
+  * expense_id
+  * value
+  * origin_id (FK to IncomeDistribution)
+
+plans
+* id
+* user_id
+* name (Comprar PC Gamer)
+-> plans_values
+  * id
+  * plan_id
+  * value
+  * origin_id (FK to IncomeDistribution)

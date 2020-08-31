@@ -23,17 +23,14 @@ class IncomeDistribution {
   @Column()
   description: string;
 
-  @Column({
-    precision: 5,
-    scale: 2,
-  })
+  @Column()
   percentage: number;
 
-  @Column({
-    precision: 5,
-    scale: 2,
-  })
+  @Column()
   value: number;
+
+  @Column()
+  accomplished_value: number;
 
   @Column()
   user_id: string;
