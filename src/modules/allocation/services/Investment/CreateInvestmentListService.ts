@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
-import IExpenseRepository from '@modules/allocation/repositories/Expense/IExpenseRepository';
 import Expense from '@modules/allocation/infra/typeorm/entities/Expense';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IInvestmentRepository from '@modules/allocation/repositories/Investment/IInvestmentRepository';
 
 interface IRequest {
   user_id: string;
@@ -11,10 +11,10 @@ interface IRequest {
 }
 
 @injectable()
-class CreateExpenseListService {
+class CreateInvestmentListService {
   constructor(
-    @inject('ExpenseRepository')
-    private expenseRepository: IExpenseRepository,
+    @inject('InvestmentRepository')
+    private investmentRepository: IInvestmentRepository,
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
@@ -22,10 +22,10 @@ class CreateExpenseListService {
   public async execute({ user_id, name }: IRequest): Promise<Expense> {
     const userExists = await this.usersRepository.findById(user_id);
     if (!userExists) {
-      throw new AppError('User not found to create expense list');
+      throw new AppError('User not found to create a investment list');
     }
 
-    const expense = await this.expenseRepository.create({
+    const expense = await this.investmentRepository.create({
       user_id,
       name,
     });
@@ -34,4 +34,4 @@ class CreateExpenseListService {
   }
 }
 
-export default CreateExpenseListService;
+export default CreateInvestmentListService;
