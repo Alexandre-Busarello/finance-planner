@@ -11,6 +11,14 @@ class FakeInvestmentRepository implements IInvestmentRepository {
 
   private investmentValues: InvestmentValue[] = [];
 
+  async getAllValuesBySameOrigin(
+    origin_id: string,
+  ): Promise<InvestmentValue[]> {
+    return this.investmentValues.filter(
+      investment => investment.origin_id === origin_id,
+    );
+  }
+
   async create(data: ICreateInvestmentDTO): Promise<Investment> {
     const investment = new Investment();
 

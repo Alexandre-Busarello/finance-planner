@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
+import ColumnNumericTransformer from '@shared/infra/typeorm/transforms/ColumnNumericTransformer';
 
 @Entity('monthly_income')
 class MonthlyIncome {
@@ -21,7 +22,8 @@ class MonthlyIncome {
   year: number;
 
   @Column({
-    type: 'decimal',
+    type: 'double precision',
+    transformer: new ColumnNumericTransformer(),
   })
   value: number;
 

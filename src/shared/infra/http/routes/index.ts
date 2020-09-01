@@ -8,7 +8,9 @@ import monthlyIncomesRouter from '@modules/incomes/infra/http/routes/monthly-inc
 import incomeDistributionRouter from '@modules/incomes/infra/http/routes/income-distribution.routes';
 
 import expensesRouter from '@modules/allocation/infra/http/routes/expenses.routes';
-import incomeExpensesDistributionRouter from '@modules/allocation/infra/http/routes/income-expense-distribution.routes';
+import investmentsRouter from '@modules/allocation/infra/http/routes/investments.routes';
+import plansRouter from '@modules/allocation/infra/http/routes/plans.routes';
+import incomeExpensesDistributionRouter from '@modules/allocation/infra/http/routes/income-distribution.routes';
 
 const routes = Router();
 
@@ -21,6 +23,8 @@ routes.use('/monthly-incomes', monthlyIncomesRouter);
 routes.use('/incomes-distribution', incomeDistributionRouter);
 
 routes.use('/expenses', expensesRouter);
+routes.use('/investments', investmentsRouter);
+routes.use('/plans', plansRouter);
 routes.use('/incomes-distribution', incomeExpensesDistributionRouter);
 
 export default routes;

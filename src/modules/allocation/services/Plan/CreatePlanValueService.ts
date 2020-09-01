@@ -2,34 +2,31 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IIncomeDistributionRepository from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
-import IExpenseRepository from '@modules/allocation/repositories/Expense/IExpenseRepository';
-import ExpenseValue from '@modules/allocation/infra/typeorm/entities/ExpenseValue';
+import PlanValue from '@modules/allocation/infra/typeorm/entities/PlanValue';
+import IPlanRepository from '@modules/allocation/repositories/Plan/IPlanRepository';
 
 interface IRequest {
-  expense_id: string;
+  plan_id: string;
   name: string;
   value: number;
   origin_id: string;
 }
 
-// Regra 1 - Não permitir ultrapassar o valor total da origem
-// Regra 2 - Atualizar o campo da tabela income_distribution para consumir o crédito
-
 @injectable()
-class CreateExpenseValueService {
+class CreatePlanValueService {
   constructor(
-    @inject('ExpenseRepository')
-    private expenseRepository: IExpenseRepository,
+    @inject('PlanRepository')
+    private plansRepository: IPlanRepository,
     @inject('IncomeDistributionRepository')
     private incomeDistributionRepository: IIncomeDistributionRepository,
   ) {}
 
   public async execute({
-    expense_id,
+    plan_id,
     name,
     origin_id,
     value,
-  }: IRequest): Promise<ExpenseValue> {
+  }: IRequest): Promise<PlanValue> {
     const originIncome = await this.incomeDistributionRepository.getById(
       origin_id,
     );
@@ -42,8 +39,8 @@ class CreateExpenseValueService {
       throw new AppError('The origin income distribution is been reached');
     }
 
-    const expenseValue = await this.expenseRepository.createValue({
-      expense_id,
+    const planValue = await this.plansRepository.createValue({
+      plan_id,
       name,
       origin_id,
       value,
@@ -53,8 +50,8 @@ class CreateExpenseValueService {
 
     await this.incomeDistributionRepository.saveAll([originIncome]);
 
-    return expenseValue;
+    return planValue;
   }
 }
 
-export default CreateExpenseValueService;
+export default CreatePlanValueService;

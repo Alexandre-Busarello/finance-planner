@@ -11,6 +11,12 @@ class FakeExpenseRepository implements IExpenseRepository {
 
   private expenseValues: ExpenseValue[] = [];
 
+  async getAllValuesBySameOrigin(origin_id: string): Promise<ExpenseValue[]> {
+    return this.expenseValues.filter(
+      expense => expense.origin_id === origin_id,
+    );
+  }
+
   async create(data: ICreateExpenseDTO): Promise<Expense> {
     const expense = new Expense();
 

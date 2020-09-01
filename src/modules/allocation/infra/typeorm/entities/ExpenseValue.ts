@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import IncomeDistribution from '@modules/incomes/infra/typeorm/entities/IncomeDistribution';
+import ColumnNumericTransformer from '@shared/infra/typeorm/transforms/ColumnNumericTransformer';
 import Expense from './Expense';
 
 @Entity('expense_values')
@@ -27,7 +28,8 @@ class ExpenseValue {
   name: string;
 
   @Column({
-    type: 'decimal',
+    type: 'double precision',
+    transformer: new ColumnNumericTransformer(),
   })
   value: number;
 

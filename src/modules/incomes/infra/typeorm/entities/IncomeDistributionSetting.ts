@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
+import ColumnNumericTransformer from '@shared/infra/typeorm/transforms/ColumnNumericTransformer';
 
 @Entity('income_distribution_settings')
 class IncomeDistributionSetting {
@@ -18,7 +19,8 @@ class IncomeDistributionSetting {
   description: string;
 
   @Column({
-    type: 'decimal',
+    type: 'double precision',
+    transformer: new ColumnNumericTransformer(),
   })
   percentage: number;
 

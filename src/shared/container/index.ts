@@ -17,6 +17,10 @@ import IIncomeDistribution from '@modules/incomes/repositories/IncomeDistributio
 import IncomeDistributionRepository from '@modules/incomes/infra/typeorm/repositories/IncomeDistributionRepository';
 import IExpenseRepository from '@modules/allocation/repositories/Expense/IExpenseRepository';
 import ExpenseRepository from '@modules/allocation/infra/typeorm/repositories/ExpenseRepository';
+import IInvestmentRepository from '@modules/allocation/repositories/Investment/IInvestmentRepository';
+import InvestmentRepository from '@modules/allocation/infra/typeorm/repositories/InvestmentRepository';
+import IPlanRepository from '@modules/allocation/repositories/Plan/IPlanRepository';
+import PlanRepository from '@modules/allocation/infra/typeorm/repositories/PlanRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -52,3 +56,10 @@ container.registerSingleton<IExpenseRepository>(
   'ExpenseRepository',
   ExpenseRepository,
 );
+
+container.registerSingleton<IInvestmentRepository>(
+  'InvestmentRepository',
+  InvestmentRepository,
+);
+
+container.registerSingleton<IPlanRepository>('PlanRepository', PlanRepository);

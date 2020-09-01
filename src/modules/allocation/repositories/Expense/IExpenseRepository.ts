@@ -5,5 +5,7 @@ import ExpenseValue from '@modules/allocation/infra/typeorm/entities/ExpenseValu
 
 export default interface IExpenseRepository {
   create(data: ICreateExpenseDTO): Promise<Expense>;
+
+  getAllValuesBySameOrigin(origin_id: string): Promise<ExpenseValue[]>;
   createValue(data: ICreateExpenseValueDTO): Promise<ExpenseValue>;
 }

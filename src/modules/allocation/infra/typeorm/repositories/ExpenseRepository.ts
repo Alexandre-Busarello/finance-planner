@@ -15,6 +15,10 @@ class ExpenseRepository implements IExpenseRepository {
     this.ormExpenseValueRepository = getRepository(ExpenseValue);
   }
 
+  async getAllValuesBySameOrigin(origin_id: string): Promise<ExpenseValue[]> {
+    return this.ormExpenseValueRepository.find({ where: { origin_id } });
+  }
+
   async create({ name, user_id }: ICreateExpenseDTO): Promise<Expense> {
     const expense = this.ormExpenseRepository.create({
       user_id,

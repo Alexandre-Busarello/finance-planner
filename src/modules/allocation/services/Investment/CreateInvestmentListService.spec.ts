@@ -17,7 +17,7 @@ describe('CreateInvestmentListService', () => {
     );
   });
 
-  it('should be able to create an expense list', async () => {
+  it('should be able to create an investment list', async () => {
     const user = await fakeUsersRepository.create({
       name: 'User',
       email: 'user@user.com',
@@ -33,7 +33,7 @@ describe('CreateInvestmentListService', () => {
     expect(expense.name).toEqual('Investments');
   });
 
-  it('should not be able to create an expense list if user doesnt exists', async () => {
+  it('should not be able to create an investment list if user doesnt exists', async () => {
     await expect(
       createInvestmentListService.execute({
         user_id: 'non-existing user',
