@@ -5,6 +5,7 @@ import InvestmentValue from '@modules/allocation/infra/typeorm/entities/Investme
 
 export default interface IInvestmentRepository {
   create(data: ICreateInvestmentDTO): Promise<Investment>;
+  getAllUserInvestments(user_id: string): Promise<Investment[]>;
 
   getAllValuesBySameOrigin(origin_id: string): Promise<InvestmentValue[]>;
   createValue(data: ICreateInvestmentValueDTO): Promise<InvestmentValue>;

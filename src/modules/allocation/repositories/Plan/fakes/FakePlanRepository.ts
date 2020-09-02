@@ -11,8 +11,22 @@ class FakePlanRepository implements IPlanRepository {
 
   private planValues: PlanValue[] = [];
 
+  async getById(id: string): Promise<Plan | undefined> {
+    return this.plans.find(plan => plan.id === id);
+  }
+
   async getAllValuesBySameOrigin(origin_id: string): Promise<PlanValue[]> {
     return this.planValues.filter(plan => plan.origin_id === origin_id);
+  }
+
+  async save(data: Plan): Promise<Plan> {
+    const index = this.plans.findIndex(plan => {
+      return plan.id === data.id;
+    });
+
+    this.plans[index] = data;
+
+    return this.plans[index];
   }
 
   async create(data: ICreatePlanDTO): Promise<Plan> {

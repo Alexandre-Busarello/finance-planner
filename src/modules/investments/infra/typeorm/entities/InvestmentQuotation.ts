@@ -7,35 +7,30 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import User from '@modules/users/infra/typeorm/entities/User';
-import ColumnNumericTransformer from '@shared/infra/typeorm/transforms/ColumnNumericTransformer';
 
-@Entity('investments')
-class Investment {
+import ColumnNumericTransformer from '@shared/infra/typeorm/transforms/ColumnNumericTransformer';
+import Investment from '@modules/allocation/infra/typeorm/entities/Investment';
+
+@Entity('investment_quotations')
+class InvestmentQuotation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  user_id: string;
+  investment_id: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @ManyToOne(() => Investment)
+  @JoinColumn({ name: 'investment_id' })
+  user: Investment;
 
   @Column()
-  name: string;
+  date: Date;
 
   @Column({
     type: 'double precision',
     transformer: new ColumnNumericTransformer(),
-    default: 0,
   })
-  objective_percentage: number;
-
-  @Column({
-    default: false,
-  })
-  is_dollar: boolean;
+  quotation_value: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -44,4 +39,4 @@ class Investment {
   updated_at: Date;
 }
 
-export default Investment;
+export default InvestmentQuotation;

@@ -21,15 +21,24 @@ class InvestmentRepository implements IInvestmentRepository {
     return this.ormInvestmentValueRepository.find({ where: { origin_id } });
   }
 
-  async create({ name, user_id }: ICreateInvestmentDTO): Promise<Investment> {
-    const expense = this.ormInvestmentRepository.create({
+  async getAllUserInvestments(user_id: string): Promise<Investment[]> {
+    return this.ormInvestmentRepository.find({ where: { user_id } });
+  }
+
+  async create({
+    name,
+    user_id,
+    objective_percentage,
+  }: ICreateInvestmentDTO): Promise<Investment> {
+    const investment = this.ormInvestmentRepository.create({
       user_id,
       name,
+      objective_percentage,
     });
 
-    await this.ormInvestmentRepository.save(expense);
+    await this.ormInvestmentRepository.save(investment);
 
-    return expense;
+    return investment;
   }
 
   async createValue({
@@ -38,16 +47,16 @@ class InvestmentRepository implements IInvestmentRepository {
     name,
     value,
   }: ICreateInvestmentValueDTO): Promise<InvestmentValue> {
-    const expenseValue = this.ormInvestmentValueRepository.create({
+    const investmentValue = this.ormInvestmentValueRepository.create({
       investment_id,
       origin_id,
       name,
       value,
     });
 
-    await this.ormInvestmentValueRepository.save(expenseValue);
+    await this.ormInvestmentValueRepository.save(investmentValue);
 
-    return expenseValue;
+    return investmentValue;
   }
 }
 

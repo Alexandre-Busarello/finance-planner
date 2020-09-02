@@ -48,6 +48,12 @@ class CreatePlanValueService {
 
     originIncome.accomplished_value += value;
 
+    const plan = await this.plansRepository.getById(plan_id);
+    if (plan) {
+      plan.accomplished_value += value;
+      this.plansRepository.save(plan);
+    }
+
     await this.incomeDistributionRepository.saveAll([originIncome]);
 
     return planValue;

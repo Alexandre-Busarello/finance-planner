@@ -24,13 +24,16 @@ describe('CreatePlanListService', () => {
       password: '123456',
     });
 
-    const expense = await createPlanListService.execute({
+    const plan = await createPlanListService.execute({
       user_id: user.id,
       name: 'Car',
+      objective_value: 10000,
+      accomplished_value: 0,
     });
 
-    expect(expense).toBeDefined();
-    expect(expense.name).toEqual('Car');
+    expect(plan).toBeDefined();
+    expect(plan.name).toEqual('Car');
+    expect(plan.objective_value).toEqual(10000);
   });
 
   it('should not be able to create an expense list if user doesnt exists', async () => {
@@ -38,6 +41,8 @@ describe('CreatePlanListService', () => {
       createPlanListService.execute({
         user_id: 'non-existing user',
         name: 'Car',
+        objective_value: 10000,
+        accomplished_value: 0,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

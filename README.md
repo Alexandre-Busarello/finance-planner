@@ -56,3 +56,26 @@ plans
 
 POST http://localhost:3333/incomes-distribution/{id}/investment/{investmentId} (Faz aporte)
 POST http://localhost:3333/investment (Cria a lista para aportes)
+
+Dashboard
+
+Header
+
+- Opção de selecionar desde o inicio ou por mês
+
+Opções do Topo
+
+- Valores disponiveis para alocar (mês ou desde o inicio)
+  - Ao clicar, se for desde o inicio mostrar os meses com valores disponiveis para alocar
+    - Ao selecionar o mês ir para tela de alocações
+  - Ao clicar, se for de um mês especifico ir direto para tela de alocações
+- Valor do patrimonio total investido (mês ou desde o inicio)
+- Rentabilidade dos investimentos (mês ou desde o inicio)
+- Reserva de emergencia (não entra no patrimonio)
+
+Opções abaixo
+
+- Adicionar renda mensal
+  - Redirecionar para a tela de alocações
+- Criar listas de aportes (investimentos, planos e despesas)
+  - Investimentos, Planos, Despesas

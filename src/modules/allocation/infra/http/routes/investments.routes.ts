@@ -14,6 +14,8 @@ investmentRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      objective_percentage: Joi.number(),
+      is_dollar: Joi.boolean(),
     },
   }),
   investmentController.create,

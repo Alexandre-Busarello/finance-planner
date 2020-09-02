@@ -14,6 +14,7 @@ planRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      objective_value: Joi.number().required(),
     },
   }),
   planController.create,

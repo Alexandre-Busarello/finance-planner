@@ -8,6 +8,8 @@ import Plan from '@modules/allocation/infra/typeorm/entities/Plan';
 interface IRequest {
   user_id: string;
   name: string;
+  objective_value: number;
+  accomplished_value: number;
 }
 
 @injectable()
@@ -19,7 +21,12 @@ class CreatePlanListService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ user_id, name }: IRequest): Promise<Plan> {
+  public async execute({
+    user_id,
+    name,
+    objective_value,
+    accomplished_value,
+  }: IRequest): Promise<Plan> {
     const userExists = await this.usersRepository.findById(user_id);
     if (!userExists) {
       throw new AppError('User not found to create a investment list');
@@ -28,6 +35,8 @@ class CreatePlanListService {
     const expense = await this.plansRepository.create({
       user_id,
       name,
+      objective_value,
+      accomplished_value,
     });
 
     return expense;

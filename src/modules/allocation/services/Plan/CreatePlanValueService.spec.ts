@@ -30,6 +30,8 @@ describe('CreatePlanValueService', () => {
     const planList = await fakePlanRepository.create({
       name: 'Car',
       user_id: user.id,
+      objective_value: 10000,
+      accomplished_value: 0,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({
@@ -64,6 +66,8 @@ describe('CreatePlanValueService', () => {
     const planList = await fakePlanRepository.create({
       name: 'Car',
       user_id: user.id,
+      objective_value: 10000,
+      accomplished_value: 0,
     });
 
     await expect(
@@ -86,6 +90,8 @@ describe('CreatePlanValueService', () => {
     const planList = await fakePlanRepository.create({
       name: 'Car',
       user_id: user.id,
+      objective_value: 10000,
+      accomplished_value: 0,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({
@@ -125,6 +131,8 @@ describe('CreatePlanValueService', () => {
     const planList = await fakePlanRepository.create({
       name: 'Car',
       user_id: user.id,
+      objective_value: 10000,
+      accomplished_value: 0,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({
@@ -155,6 +163,9 @@ describe('CreatePlanValueService', () => {
       incomeDistribution.id,
     );
 
+    const updatedPlan = await fakePlanRepository.getById(planList.id);
+
     expect(updatedIncome?.accomplished_value).toEqual(2000);
+    expect(updatedPlan?.accomplished_value).toEqual(2000);
   });
 });

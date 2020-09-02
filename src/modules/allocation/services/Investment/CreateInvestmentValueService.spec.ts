@@ -30,6 +30,8 @@ describe('CreateInvestmentValueService', () => {
     const investmentList = await fakeInvestmentRepository.create({
       name: 'Investments',
       user_id: user.id,
+      objective_percentage: 50,
+      is_dollar: false,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({
@@ -64,6 +66,8 @@ describe('CreateInvestmentValueService', () => {
     const investmentList = await fakeInvestmentRepository.create({
       name: 'Investments',
       user_id: user.id,
+      objective_percentage: 50,
+      is_dollar: false,
     });
 
     await expect(
@@ -86,6 +90,8 @@ describe('CreateInvestmentValueService', () => {
     const investmentList = await fakeInvestmentRepository.create({
       name: 'Investments',
       user_id: user.id,
+      objective_percentage: 50,
+      is_dollar: false,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({
@@ -125,6 +131,8 @@ describe('CreateInvestmentValueService', () => {
     const investmentList = await fakeInvestmentRepository.create({
       name: 'Investments',
       user_id: user.id,
+      objective_percentage: 50,
+      is_dollar: false,
     });
 
     const incomeDistribution = await fakeIncomeDistributionRepository.create({

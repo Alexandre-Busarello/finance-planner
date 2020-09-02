@@ -15,19 +15,34 @@ class PlanRepository implements IPlanRepository {
     this.ormPlanValueRepository = getRepository(PlanValue);
   }
 
+  async getById(id: string): Promise<Plan | undefined> {
+    return this.ormPlanRepository.findOne(id);
+  }
+
   async getAllValuesBySameOrigin(origin_id: string): Promise<PlanValue[]> {
     return this.ormPlanValueRepository.find({ where: { origin_id } });
   }
 
-  async create({ name, user_id }: ICreatePlanDTO): Promise<Plan> {
-    const expense = this.ormPlanRepository.create({
+  async save(data: Plan): Promise<Plan> {
+    return this.ormPlanRepository.save(data);
+  }
+
+  async create({
+    name,
+    user_id,
+    objective_value,
+    accomplished_value,
+  }: ICreatePlanDTO): Promise<Plan> {
+    const plan = this.ormPlanRepository.create({
       user_id,
       name,
+      objective_value,
+      accomplished_value,
     });
 
-    await this.ormPlanRepository.save(expense);
+    await this.ormPlanRepository.save(plan);
 
-    return expense;
+    return plan;
   }
 
   async createValue({
@@ -36,16 +51,16 @@ class PlanRepository implements IPlanRepository {
     name,
     value,
   }: ICreatePlanValueDTO): Promise<PlanValue> {
-    const expenseValue = this.ormPlanValueRepository.create({
+    const planValue = this.ormPlanValueRepository.create({
       plan_id,
       origin_id,
       name,
       value,
     });
 
-    await this.ormPlanValueRepository.save(expenseValue);
+    await this.ormPlanValueRepository.save(planValue);
 
-    return expenseValue;
+    return planValue;
   }
 }
 

@@ -19,6 +19,12 @@ class FakeInvestmentRepository implements IInvestmentRepository {
     );
   }
 
+  async getAllUserInvestments(user_id: string): Promise<Investment[]> {
+    return this.investments.filter(
+      investment => investment.user_id === user_id,
+    );
+  }
+
   async create(data: ICreateInvestmentDTO): Promise<Investment> {
     const investment = new Investment();
 
