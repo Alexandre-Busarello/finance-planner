@@ -14,6 +14,18 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
     return income;
   }
 
+  async getTotalValue(user_id: string): Promise<number> {
+    const incomes = this.incomesDistribution.filter(
+      find => find.user_id === user_id,
+    );
+
+    const incomesSum = incomes.reduce((sum, income) => {
+      return sum + (income.value - income.accomplished_value);
+    }, 0);
+
+    return incomesSum;
+  }
+
   async getAll({
     user_id,
     month,

@@ -5,6 +5,7 @@ import IDeleteIncomeDistributionDTO from '@modules/incomes/dtos/IDeleteIncomeDis
 
 export default interface IIncomeDistribution {
   getById(id: string): Promise<IncomeDistribution | undefined>;
+  getTotalValue(user_id: string): Promise<number>;
   getAll(data: IGetAllIncomeDistributionDTO): Promise<IncomeDistribution[]>;
   create(data: ICreateIncomeDistributionDTO): Promise<IncomeDistribution>;
   saveAll(incomes: IncomeDistribution[]): Promise<IncomeDistribution[]>;

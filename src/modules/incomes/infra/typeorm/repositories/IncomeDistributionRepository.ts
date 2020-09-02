@@ -17,6 +17,20 @@ class IncomeDistributionRepository implements IIncomeDistribution {
     return income;
   }
 
+  async getTotalValue(user_id: string): Promise<number> {
+    const incomes = await this.ormRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    const incomesSum = incomes.reduce((sum, income) => {
+      return sum + (income.value - income.accomplished_value);
+    }, 0);
+
+    return incomesSum;
+  }
+
   async getAll({
     user_id,
     month,

@@ -29,16 +29,6 @@ class CreateIncomesDistributionService {
     month,
     year,
   }: IRequest): Promise<IncomeDistribution[]> {
-    const settings = await this.incomeDistributionSettingRepository.findByUser(
-      user_id,
-    );
-
-    if (!settings) {
-      throw new AppError(
-        'Income distribution settings not found to create a income distribution',
-      );
-    }
-
     const monthlyIncomeList = await this.monthlyIncomeRepository.findByUserAndMonthAndYear(
       user_id,
       month,
@@ -58,30 +48,27 @@ class CreateIncomesDistributionService {
       0,
     );
 
-    await this.incomeDistributionRepository.delete({
+    const incomes = await this.incomeDistributionRepository.getAll({
       user_id,
-      month,
       year,
+      month,
     });
 
-    const incomes: IncomeDistribution[] = [];
-    settings.forEach(async setting => {
-      const income = await this.incomeDistributionRepository.create({
-        user_id,
-        year,
-        month,
-        description: setting.description,
-        percentage: setting.percentage,
-        value: Number(
-          ((monthlyIncomeValue / 100) * setting.percentage).toFixed(2),
-        ),
-        accomplished_value: 0,
-      });
+    const updateIncomes: IncomeDistribution[] = [];
 
-      incomes.push(income);
+    incomes.forEach(async income => {
+      const updateIncome = income;
+
+      updateIncome.value = Number(
+        ((monthlyIncomeValue / 100) * updateIncome.percentage).toFixed(2),
+      );
+
+      updateIncomes.push(income);
     });
 
-    return incomes;
+    this.incomeDistributionRepository.saveAll(updateIncomes);
+
+    return updateIncomes;
   }
 }
 

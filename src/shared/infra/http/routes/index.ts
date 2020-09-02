@@ -6,6 +6,7 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 
 import monthlyIncomesRouter from '@modules/incomes/infra/http/routes/monthly-income.routes';
 import incomeDistributionRouter from '@modules/incomes/infra/http/routes/income-distribution.routes';
+import totalAvailableRouter from '@modules/incomes/infra/http/routes/total-available.routes';
 
 import expensesRouter from '@modules/allocation/infra/http/routes/expenses.routes';
 import investmentsRouter from '@modules/allocation/infra/http/routes/investments.routes';
@@ -26,5 +27,7 @@ routes.use('/expenses', expensesRouter);
 routes.use('/investments', investmentsRouter);
 routes.use('/plans', plansRouter);
 routes.use('/incomes-distribution', incomeExpensesDistributionRouter);
+
+routes.use('/total-available', totalAvailableRouter);
 
 export default routes;
