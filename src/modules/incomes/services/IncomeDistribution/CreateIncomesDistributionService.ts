@@ -29,6 +29,16 @@ class CreateIncomesDistributionService {
     month,
     year,
   }: IRequest): Promise<IncomeDistribution[]> {
+    const settings = await this.incomeDistributionSettingRepository.findByUser(
+      user_id,
+    );
+
+    if (!settings) {
+      throw new AppError(
+        'Income distribution settings not found to create a income distribution',
+      );
+    }
+
     const monthlyIncomeList = await this.monthlyIncomeRepository.findByUserAndMonthAndYear(
       user_id,
       month,
@@ -48,27 +58,49 @@ class CreateIncomesDistributionService {
       0,
     );
 
-    const incomes = await this.incomeDistributionRepository.getAll({
+    const incomesFromDb = await this.incomeDistributionRepository.getAll({
       user_id,
       year,
       month,
     });
 
-    const updateIncomes: IncomeDistribution[] = [];
+    const incomes: IncomeDistribution[] = [];
 
-    incomes.forEach(async income => {
+    console.log(monthlyIncomeValue);
+    // Create if not exists
+    if (!incomesFromDb.length) {
+      settings.forEach(async setting => {
+        const income = await this.incomeDistributionRepository.create({
+          user_id,
+          year,
+          month,
+          description: setting.description,
+          percentage: setting.percentage,
+          value: Number(
+            ((monthlyIncomeValue / 100) * setting.percentage).toFixed(2),
+          ),
+          accomplished_value: 0,
+        });
+        incomes.push(income);
+      });
+
+      return incomes;
+    }
+
+    // Updated if exists
+    incomesFromDb.forEach(async income => {
       const updateIncome = income;
 
       updateIncome.value = Number(
         ((monthlyIncomeValue / 100) * updateIncome.percentage).toFixed(2),
       );
 
-      updateIncomes.push(income);
+      incomes.push(income);
     });
 
-    this.incomeDistributionRepository.saveAll(updateIncomes);
+    this.incomeDistributionRepository.saveAll(incomes);
 
-    return updateIncomes;
+    return incomes;
   }
 }
 
