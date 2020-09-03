@@ -17,6 +17,10 @@ class FakeExpenseRepository implements IExpenseRepository {
     );
   }
 
+  async getAllUserExpenses(user_id: string): Promise<Expense[]> {
+    return this.expenses.filter(expense => expense.user_id === user_id);
+  }
+
   async create(data: ICreateExpenseDTO): Promise<Expense> {
     const expense = new Expense();
 

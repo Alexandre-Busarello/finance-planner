@@ -5,17 +5,20 @@ import GetIncomesDistributionService from '@modules/incomes/services/IncomeDistr
 
 export default class IncomeDistributionController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { month, year } = request.body;
+    const { month, year } = request.query;
     const user_id = request.user.id;
 
     const getIncomesDistribution = container.resolve(
       GetIncomesDistributionService,
     );
 
+    const month_number = Number(month);
+    const year_number = Number(year);
+
     const incomes = await getIncomesDistribution.execute({
       user_id,
-      month,
-      year,
+      month: month_number,
+      year: year_number,
     });
 
     return response.json(incomes);

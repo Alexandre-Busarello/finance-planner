@@ -8,6 +8,8 @@ export default interface IPlanRepository {
   create(data: ICreatePlanDTO): Promise<Plan>;
   save(data: Plan): Promise<Plan>;
 
+  getAllUserPlans(user_id: string): Promise<Plan[]>;
+
   getAllValuesBySameOrigin(origin_id: string): Promise<PlanValue[]>;
   createValue(data: ICreatePlanValueDTO): Promise<PlanValue>;
 }

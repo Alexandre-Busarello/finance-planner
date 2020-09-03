@@ -4,6 +4,7 @@ import ICreateIncomeDistributionDTO from '@modules/incomes/dtos/ICreateIncomeDis
 import IncomeDistribution from '@modules/incomes/infra/typeorm/entities/IncomeDistribution';
 import IGetAllIncomeDistributionDTO from '@modules/incomes/dtos/IGetAllIncomeDistributionDTO';
 import IDeleteIncomeDistributionDTO from '@modules/incomes/dtos/IDeleteIncomeDistributionDTO';
+import IIncomeDistributionGroupedByYearDTO from '@modules/incomes/dtos/IIncomeDistributionGroupedByYearDTO';
 import IIncomeDistribution from '../IIncomeDistribution';
 
 class FakeIncomeDistributionRepository implements IIncomeDistribution {
@@ -12,6 +13,32 @@ class FakeIncomeDistributionRepository implements IIncomeDistribution {
   async getById(id: string): Promise<IncomeDistribution | undefined> {
     const income = this.incomesDistribution.find(find => find.id === id);
     return income;
+  }
+
+  async getGroupedByYear(
+    user_id: string,
+    year: number,
+  ): Promise<IIncomeDistributionGroupedByYearDTO[]> {
+    const incomes = this.incomesDistribution
+      .filter(find => find.user_id === user_id && find.year === year)
+      .sort(sort => sort.month);
+
+    const groupedList: IIncomeDistributionGroupedByYearDTO[] = [];
+    let lastMonth = -1;
+    incomes.forEach(income => {
+      if (income.month !== lastMonth) {
+        groupedList.push(income);
+        lastMonth = income.month;
+      }
+      const grouped = groupedList.find(g => g.month === lastMonth);
+      if (grouped) {
+        grouped.percentage += income.percentage;
+        grouped.value += income.value;
+        grouped.accomplished_value += income.accomplished_value;
+      }
+    });
+
+    return groupedList;
   }
 
   async getTotalValue(user_id: string): Promise<number> {

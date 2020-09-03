@@ -66,7 +66,6 @@ class CreateIncomesDistributionService {
 
     const incomes: IncomeDistribution[] = [];
 
-    console.log(monthlyIncomeValue);
     // Create if not exists
     if (!incomesFromDb.length) {
       settings.forEach(async setting => {

@@ -12,6 +12,8 @@ import expensesRouter from '@modules/allocation/infra/http/routes/expenses.route
 import investmentsRouter from '@modules/allocation/infra/http/routes/investments.routes';
 import plansRouter from '@modules/allocation/infra/http/routes/plans.routes';
 import incomeExpensesDistributionRouter from '@modules/allocation/infra/http/routes/income-distribution.routes';
+import monthsAvailableRouter from '@modules/incomes/infra/http/routes/months-available.routes';
+import listsRouter from '@modules/allocation/infra/http/routes/lists.routes';
 
 const routes = Router();
 
@@ -29,5 +31,8 @@ routes.use('/plans', plansRouter);
 routes.use('/incomes-distribution', incomeExpensesDistributionRouter);
 
 routes.use('/total-available', totalAvailableRouter);
+routes.use('/months-available', monthsAvailableRouter);
+
+routes.use('/lists', listsRouter);
 
 export default routes;

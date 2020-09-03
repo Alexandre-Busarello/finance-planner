@@ -19,6 +19,10 @@ class FakePlanRepository implements IPlanRepository {
     return this.planValues.filter(plan => plan.origin_id === origin_id);
   }
 
+  async getAllUserPlans(user_id: string): Promise<Plan[]> {
+    return this.plans.filter(plan => plan.user_id === user_id);
+  }
+
   async save(data: Plan): Promise<Plan> {
     const index = this.plans.findIndex(plan => {
       return plan.id === data.id;

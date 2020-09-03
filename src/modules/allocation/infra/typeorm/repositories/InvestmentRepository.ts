@@ -29,11 +29,13 @@ class InvestmentRepository implements IInvestmentRepository {
     name,
     user_id,
     objective_percentage,
+    is_dollar,
   }: ICreateInvestmentDTO): Promise<Investment> {
     const investment = this.ormInvestmentRepository.create({
       user_id,
       name,
       objective_percentage,
+      is_dollar,
     });
 
     await this.ormInvestmentRepository.save(investment);

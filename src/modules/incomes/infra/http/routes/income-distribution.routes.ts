@@ -13,7 +13,7 @@ incomeDistributionRouter.use(ensureAuthenticated);
 incomeDistributionRouter.get(
   '/',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       month: Joi.number().required(),
       year: Joi.number().required(),
     },

@@ -4,6 +4,7 @@ import IGetAllIncomeDistributionDTO from '@modules/incomes/dtos/IGetAllIncomeDis
 import IDeleteIncomeDistributionDTO from '@modules/incomes/dtos/IDeleteIncomeDistributionDTO';
 import { Repository, getRepository } from 'typeorm';
 import IIncomeDistribution from '@modules/incomes/repositories/IncomeDistribution/IIncomeDistribution';
+import IIncomeDistributionGroupedByYearDTO from '@modules/incomes/dtos/IIncomeDistributionGroupedByYearDTO';
 
 class IncomeDistributionRepository implements IIncomeDistribution {
   private ormRepository: Repository<IncomeDistribution>;
@@ -15,6 +16,30 @@ class IncomeDistributionRepository implements IIncomeDistribution {
   async getById(id: string): Promise<IncomeDistribution | undefined> {
     const income = this.ormRepository.findOne(id);
     return income;
+  }
+
+  async getGroupedByYear(
+    user_id: string,
+    year: number,
+  ): Promise<IIncomeDistributionGroupedByYearDTO[]> {
+    const incomes = await this.ormRepository.query(
+      `
+      select 
+        "year", 
+        "month", 
+        SUM(percentage) as percentage, 
+        SUM(value) as value, 
+        SUM(accomplished_value) as accomplished_value
+      from 
+        "income_distribution"
+      where
+        "user_id" = '${user_id}' AND
+        "year" = ${year}
+      group by
+        "year", "month" 
+      `,
+    );
+    return incomes;
   }
 
   async getTotalValue(user_id: string): Promise<number> {

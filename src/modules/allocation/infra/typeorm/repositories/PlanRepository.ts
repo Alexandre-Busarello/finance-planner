@@ -23,6 +23,10 @@ class PlanRepository implements IPlanRepository {
     return this.ormPlanValueRepository.find({ where: { origin_id } });
   }
 
+  async getAllUserPlans(user_id: string): Promise<Plan[]> {
+    return this.ormPlanRepository.find({ where: { user_id } });
+  }
+
   async save(data: Plan): Promise<Plan> {
     return this.ormPlanRepository.save(data);
   }
